@@ -31,7 +31,10 @@ package com.github.schmittjoaopedro;
  *
  * Para resolver esse problema é interessante usarmos alguns conceitos da teoria dos números,
  * sabemos que todos números pares são divísiveis pelo número prímo dois, dessa forma o que
- * é feito é separar essa parte da parte ímpar para resolver potencia
+ * é feito é separar essa parte da parte ímpar para resolver potencia.
+ *
+ * No caso da função recursiva a complexidade de espaço e O(log e) devida a pilha de chamadas
+ * e por não ser recursão de cauda.
  */
 public class Power {
 
