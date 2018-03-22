@@ -1,4 +1,4 @@
-package com.github.schmittjoaopedro;
+package com.github.schmittjoaopedro.PAAExe1;
 
 /**
  * Ambas as funões power podem ser calculadas da seguinte forma

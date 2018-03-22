@@ -1,4 +1,4 @@
-package com.github.schmittjoaopedro;
+package com.github.schmittjoaopedro.PAAExe1;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
