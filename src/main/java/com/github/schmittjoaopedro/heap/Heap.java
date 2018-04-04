@@ -17,8 +17,8 @@ public class Heap {
     public static void heapify_ite(int a[], int n, int i) {
         int e, d, maior = -1;
         while(maior != i) {
-            e = esquerda(i);
-            d = direita(i);
+            e = left(i);
+            d = right(i);
             if(e < n && a[e] > a[i]) {
                 maior = e;
             } else {
@@ -36,22 +36,22 @@ public class Heap {
     }
 
     public static void heapify(int a[], int n, int i) {
-        int e, d, maior, aux;
-        e = esquerda(i);
-        d = direita(i);
+        int e, d, greatest, aux;
+        e = left(i);
+        d = right(i);
         if(e < n && a[e] > a[i]) {
-            maior = e;
+            greatest = e;
         } else {
-            maior = i;
+            greatest = i;
         }
-        if(d < n && a[d] > a[maior]) {
-            maior = d;
+        if(d < n && a[d] > a[greatest]) {
+            greatest = d;
         }
-        if(maior != i) {
+        if(greatest != i) {
             aux = a[i];
-            a[i] = a[maior];
-            a[maior] = aux;
-            heapify(a, n, maior);
+            a[i] = a[greatest];
+            a[greatest] = aux;
+            heapify(a, n, greatest);
         }
     }
 
@@ -70,11 +70,11 @@ public class Heap {
         }
     }
 
-    public static int esquerda(int i) {
+    public static int left(int i) {
         return (2 * i + 1);
     }
 
-    public static int direita(int i) {
+    public static int right(int i) {
         return (2 * i + 2);
     }
 
