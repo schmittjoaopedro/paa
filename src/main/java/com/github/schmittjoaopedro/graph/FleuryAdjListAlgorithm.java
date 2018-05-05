@@ -105,23 +105,21 @@ public class FleuryAdjListAlgorithm {
         if(from.adjacency.size() == 1) {
             return false;
         }
-        int visited[] = new int[graph.getSize()];
-        int bridgeCount = getReachableNodesCount(visited, to);
+        int bridgeCount = getReachableNodesCount(new HashSet<Node>(), to);
 
         graph.delEdge(from, to);
-        visited = new int[graph.getSize()];
-        int nonBridgeCount = getReachableNodesCount(visited, to);
+        int nonBridgeCount = getReachableNodesCount(new HashSet<Node>(), to);
 
         graph.addEdge(from.value, to.value);
         return nonBridgeCount < bridgeCount;
     }
 
-    public static int getReachableNodesCount(int visited[], Node from) {
+    public static int getReachableNodesCount(Set<Node> visited, Node from) {
         int count = 1;
-        visited[from.value] = 1;
+        visited.add(from);
         Node[] nodes = from.adjacency.values().toArray(new Node[] {});
         for (Node to : nodes) {
-            if(visited[to.value] == 0) {
+            if(!visited.contains(to)) {
                 count = count + getReachableNodesCount(visited, to);
             }
         }
