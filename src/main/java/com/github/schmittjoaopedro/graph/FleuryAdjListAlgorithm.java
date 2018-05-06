@@ -35,15 +35,11 @@ public class FleuryAdjListAlgorithm {
             int j = Integer.valueOf(graphLines[l].replaceAll("\\)", "").replaceAll("\\(.*?,", ""));
             graph.addEdge(i, j);
         }
-        int oddCount = getOddVerticesCount(graph);
 
-        if (oddCount == 0) {
-            System.out.println(problem + " has 0 odd vertices = Euler cycle.");
-            printRoute(getEulerPath(graph, false));
-        } else if (oddCount == 2) {
-            System.out.println(problem + " has 2 odd vertices = Euler path.");
-            printRoute(getEulerPath(graph, true));
-        } else {
+        try {
+            System.out.println(problem);
+            printRoute(getEulerPath(graph));
+        } catch (Exception e) {
             System.out.println(problem + " not have 0 or 2 odd vertices = not Euler path neither Euler cycle.");
         }
     }
@@ -85,14 +81,17 @@ public class FleuryAdjListAlgorithm {
      * A complexidade de espaço do pior caso pertence ao getEulerPath O(|E|^2),
      * porque a função que busca origem é de O(1).
      */
-    public static List<Node> getEulerPath(Graph graph, boolean isPath) {
+    public static List<Node> getEulerPath(Graph graph) throws Exception {
         List<Node> path = new ArrayList<Node>(); // O(1)
-        if (isPath) { // O(1)
+        int oddCount = getOddVerticesCount(graph); // O(|V|)
+        if (oddCount == 0) { // O(1)
+            path.add(graph.getNodes().get(0)); // O(1)
+            getEulerPath(graph, path, path.get(0));  // O(|E|^2)
+        } else if (oddCount == 2) {
             path.add(getEulerPathOrigin(graph)); // O(|V|)
             getEulerPath(graph, path, path.get(0));  // O(|E|^2)
         } else {
-            path.add(graph.getNodes().get(0)); // O(1)
-            getEulerPath(graph, path, path.get(0));  // O(|E|^2)
+            throw new Exception("Euler properties infringed.");
         }
         return path; // O(1)
     }
@@ -152,10 +151,10 @@ public class FleuryAdjListAlgorithm {
         if (from.adjacency.size() == 1) { // O(1)
             return false; // O(1)
         }
-        int bridgeCount = getReachableNodesCount(new HashSet<Node>(), to); // O(|E|)
+        int bridgeCount = DFS(new HashSet<Node>(), to); // O(|E|)
 
         graph.delEdge(from, to); // O(1)
-        int nonBridgeCount = getReachableNodesCount(new HashSet<Node>(), to); // O(|E|)
+        int nonBridgeCount = DFS(new HashSet<Node>(), to); // O(|E|)
 
         graph.addEdge(from.value, to.value); // O(1)
         return nonBridgeCount < bridgeCount; // O(1)
@@ -187,13 +186,13 @@ public class FleuryAdjListAlgorithm {
      * Como o processo recursivo é aberto para cada vértice, temos que a complexidade de espaço
      * é O(|V|).
      */
-    public static int getReachableNodesCount(Set<Node> visited, Node from) {
+    public static int DFS(Set<Node> visited, Node from) {
         int count = 1; // O(1)
         visited.add(from); // O(1)
         Node[] nodes = from.adjacency.values().toArray(new Node[]{}); // O(1)
         for (Node to : nodes) { // O(degree(from))
             if (!visited.contains(to)) { // O(1)
-                count = count + getReachableNodesCount(visited, to); // O(1)
+                count = count + DFS(visited, to); // O(1)
             }
         }
         return count; // O(1)

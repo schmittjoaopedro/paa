@@ -121,22 +121,22 @@ public class FleuryAlgorithm {
             return false;
         }
         int visited[] = new int[graph.length];
-        int bridgeCount = getReachableNodesCount(graph, visited, j);
+        int bridgeCount = DFS(graph, visited, j);
 
         graph[i][j] = graph[j][i] = 0;
         visited= new int[graph.length];
-        int nonBridgeCount = getReachableNodesCount(graph, visited, j);
+        int nonBridgeCount = DFS(graph, visited, j);
 
         graph[i][j] = graph[j][i] = 1;
         return nonBridgeCount < bridgeCount;
     }
 
-    public static int getReachableNodesCount(int graph[][], int visited[], int i) {
+    public static int DFS(int graph[][], int visited[], int i) {
         int count = 1;
         visited[i] = 1;
         for(int j = 0; j < graph[i].length; j++) {
             if(graph[i][j] == 1 && visited[j] == 0) {
-                count = count + getReachableNodesCount(graph, visited, j);
+                count = count + DFS(graph, visited, j);
             }
         }
         return count;
