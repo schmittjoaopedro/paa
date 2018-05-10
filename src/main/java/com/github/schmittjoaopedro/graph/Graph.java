@@ -16,6 +16,15 @@ public class Graph {
         to.adjacency.put(i, from);
     }
 
+    public void addEdge(int i, int j, double cost) {
+        Node from = getNode(i);
+        Node to = getNode(j);
+        from.adjacency.put(j, to);
+        from.dist.put(j, cost);
+        to.adjacency.put(i, from);
+        to.dist.put(i, cost);
+    }
+
     public Node getNode(int i) {
         if(nodes.containsKey(i)) {
             return nodes.get(i);
@@ -24,6 +33,14 @@ public class Graph {
             node.value = i;
             nodes.put(i, node);
             return node;
+        }
+    }
+
+    public double getDist(int i, int j) {
+        if(nodes.containsKey(i) && getNode(i).dist.containsKey(j)) {
+            return getNode(i).dist.get(j);
+        } else {
+            return 0;
         }
     }
 
@@ -38,7 +55,9 @@ public class Graph {
     public void delEdge(Node i, Node j) {
         if(nodes.containsKey(i.value)) {
             nodes.get(i.value).adjacency.remove(j.value);
+            nodes.get(i.value).dist.remove(j.value);
             nodes.get(j.value).adjacency.remove(i.value);
+            nodes.get(j.value).dist.remove(i.value);
         }
     }
 
