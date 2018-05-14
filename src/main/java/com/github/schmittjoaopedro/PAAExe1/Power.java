@@ -79,13 +79,12 @@ public class Power {
     public static long power_ite(long b, long e) {
         if(e == 0) return 1;
         if(e == 1) return b;
-        long n = (long) (Math.log10(e) / Math.log10(2)) + 2;
-        long r = 0;
-        for(long i = n - 1; i >= 0; i--) {
-            long v = (long) (e / Math.pow(2, i));
-            if(v == 0) r = 1;
-            else if(v % 2 == 0) r = r*r;
-            else r = r*r*b;
+        long k = (long) (Math.log10(e) / Math.log10(2));
+        long r = 1;
+        for(long i = k; i >= 0; i--) {
+            long rl = e / (long) Math.pow(2, i);
+            if(rl % 2 == 0) r = r * r;
+            else r = r * r * b;
         }
         return r;
     }
