@@ -13,11 +13,12 @@ public class FleuryAdjListAlgorithm {
 
 
     private static String problems[] = {
-            "graphs/euler-cycle-5_1.graph",
-            "graphs/euler-cycle-16_1.graph",
-            "graphs/euler-cycle-6_1.graph",
-            "graphs/euler-path-5_1.graph",
-            "graphs/euler-path-6_1.graph"
+//            "graphs/euler-cycle-5_1.graph",
+//            "graphs/euler-cycle-16_1.graph",
+//            "graphs/euler-cycle-6_1.graph",
+//            "graphs/euler-path-5_1.graph",
+//            "graphs/euler-path-6_1.graph"
+            "graphs/euler-cycle-teste1.graph"
     };
 
     public static void main(String[] args) throws Exception {
@@ -108,7 +109,7 @@ public class FleuryAdjListAlgorithm {
      * a condição de não ponte e o circuito é fechado ao atingir o último vértice, teremos |V| * O(|E|)
      * <p>
      * No pior caso, em que todas as arestas da lista de adjacência dos vértices são percorridas,
-     * temos complexidade de |E| * O(|E|) = O(|E|^2).
+     * temos complexidade de O(|V| + |E|) * O(|E|) = O(|E|^2).
      * <p>
      * Pela análise de pior caso a complexidade é de tempo é de O(|E|^2).
      * <p>
